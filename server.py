@@ -3,6 +3,7 @@
 import json
 import signal
 from socket import error
+import sys
 
 import time
 from tornado.ioloop import IOLoop
@@ -110,9 +111,13 @@ class MessageForwarder(WebSocketHandler):
 
 
 def handle_shutdown(*arg, **kwargs):
-    IOLoop.instance().stop()
+    print "bye"
+    if ioloop_started:
+        IOLoop.instance().stop()
+    sys.exit(0)
 
 if __name__ == "__main__":
+    ioloop_started = False
     backend = RosBackend.get_instance(shutdown_hook=handle_shutdown)
 
     signal.signal(signal.SIGINT, handle_shutdown)
@@ -129,7 +134,7 @@ if __name__ == "__main__":
     debug=True,
     template_path="templates")
 
-    address, port = "localhost", 8888
+    address, port = "localhost", 8801
     print "Application instantiated"
 
     connected = False
@@ -141,7 +146,10 @@ if __name__ == "__main__":
             connected = True
         except error as ex:
             print "{ex}. Cannot start, trying in a bit".format(ex=ex)
+            port += 1
             time.sleep(1)
 
     print "Starting IOLoop"
+    ioloop_started = True
     IOLoop.instance().start()
+
