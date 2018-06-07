@@ -134,7 +134,7 @@ if __name__ == "__main__":
     debug=True,
     template_path="templates")
 
-    address, port = "localhost", 8801
+    address, port = "localhost", 8888
     print "Application instantiated"
 
     connected = False
@@ -149,7 +149,7 @@ if __name__ == "__main__":
             port += 1
             time.sleep(1)
 
-    print "Starting IOLoop"
+    print "Starting IOLoop, port: " + str(port)
     ioloop_started = True
     IOLoop.instance().start()
 
