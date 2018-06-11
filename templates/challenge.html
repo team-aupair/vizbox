@@ -19,7 +19,7 @@
                         txt.appendChild(document.createTextNode(json.text));
                         txt.setAttribute("class", json.label); // added line
                         subtitles.appendChild(txt);
-                        
+
                         var footer = $(".footer");
                         footer.animate({ scrollTop: footer.prop("scrollHeight") - footer.height() }, 100);
                         break
@@ -71,7 +71,8 @@
                 {{visualization}}
                 <br>
                 <img    id="visualization_img"
-                        src="https://www.w3schools.com/html/html5.gif">
+                        src="https://www.w3schools.com/html/html5.gif"
+                        height="90%">
             </div>
             <div class="box footer">
                 <ul id="subtitles"">
